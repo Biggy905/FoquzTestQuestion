@@ -1,14 +1,24 @@
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=',
-    'username' => '',
-    'password' => '',
+    'class' => \yii\db\Connection::class,
+    'dsn' => 'pgsql:host=' . getenv('DB_HOSTNAME') . ';port=' . getenv('DB_PORT') . ';dbname=' . getenv('DB_DATABASE'),
+    'username' => getenv('DB_USER'),
+    'password' => getenv('DB_PASSWORD'),
     'charset' => 'utf8',
-
-    // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
-    //'schemaCacheDuration' => 60,
-    //'schemaCache' => 'cache',
+    'enableSchemaCache' => true,
+    'schemaCacheDuration' => 3600,
+    'schemaCache' => 'cache',
+    'schemaMap' => [
+        'pgsql' => [
+            'class' => \yii\db\pgsql\Schema::class,
+            'defaultSchema' => 'public',
+        ],
+    ],
+    'on afterOpen' => static function (\yii\base\Event $event) {
+        $event->sender->createCommand("SET time zone 'UTC'")->execute();
+    },
+    'attributes' => [
+        PDO::ATTR_PERSISTENT => getenv('DB_PERSISTENT') ?? true,
+    ],
 ];
