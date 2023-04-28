@@ -1,5 +1,5 @@
 init:
-	docker network create r_network
+	docker network create foquz_network
 up:
 	docker-compose up -d
 down:
@@ -7,8 +7,8 @@ down:
 down-clear:
 	docker-compose down -v --remove-orphans
 composer-install:
-	docker-compose run --rm r_php_cli composer install
+	docker-compose run --rm foquz_php_cli composer install
 migrate:
-	docker-compose run --rm r_php_cli php ./yii migrate -- --interactive=0
+	docker-compose run --rm foquz_php_cli php ./yii migrate -- --interactive=0
 fixtures:
-	docker-compose run --rm r_php_cli php ./yii fixtures -- --interactive=0
+	docker-compose run --rm foquz_php_cli php ./yii fixtures -- --interactive=0

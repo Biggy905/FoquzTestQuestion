@@ -45,7 +45,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres-db-data:/var/lib/postgresql/data
+      - foquz-postgres-db-data:/var/lib/postgresql/data
     restart: unless-stopped
 
 networks:
@@ -54,4 +54,4 @@ networks:
     name: foquz_network
 
 volumes:
-  postgres-db-data:
+  foquz-postgres-db-data:
