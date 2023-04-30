@@ -2,140 +2,125 @@
 
 namespace app\controllers;
 
-use webvimark\components\AdminDefaultController;
 use Yii;
 use app\models\User;
 use app\models\Polyclinics;
 use webvimark\modules\UserManagement\models\search\UserSearch;
 use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends \webvimark\modules\UserManagement\controllers\UserController
 {
-	/**
-	 * @var User
-	 */
-	public $modelClass = 'app\models\User';
+    /**
+     * @var User
+     */
+    public $modelClass = 'app\models\User';
 
-	/**
-	 * @var UserSearch
-	 */
-	public $modelSearchClass = 'app\models\UserSearch';
+    /**
+     * @var UserSearch
+     */
+    public $modelSearchClass = 'app\models\UserSearch';
 
-	public function actionIndex()
-	{
-		$searchModel  = $this->modelSearchClass ? new $this->modelSearchClass : null;
+    public function actionIndex()
+    {
+        $searchModel = $this->modelSearchClass ? new $this->modelSearchClass : null;
 
-		if ( $searchModel )
-		{
-			$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-		}
-		else
-		{
-			$modelClass = $this->modelClass;
-			$dataProvider = new ActiveDataProvider([
-				'query' => $modelClass::find(),
-			]);
-		}
+        if ($searchModel) {
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        } else {
+            $modelClass = $this->modelClass;
+            $dataProvider = new ActiveDataProvider([
+                'query' => $modelClass::find(),
+            ]);
+        }
 
-		$polyclinics = Polyclinics::find()->orderBy("name")->all();
+        $polyclinics = Polyclinics::find()->orderBy("name")->all();
 
-		return $this->renderIsAjax('index', compact('dataProvider', 'searchModel', 'polyclinics'));
-	}
+        return $this->renderIsAjax('index', compact('dataProvider', 'searchModel', 'polyclinics'));
+    }
 
 
+    /**
+     * @return mixed|string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        $model = new User(['scenario' => 'newUser']);
 
-	/**
-	 * @return mixed|string|\yii\web\Response
-	 */
-	public function actionCreate()
-	{
-		$model = new User(['scenario'=>'newUser']);
-
-		if ( $model->load(Yii::$app->request->post()) && $model->save() )
-		{
-			User::assignRole($model->id, 'user');
-			return $this->redirect(['index']);
-		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            User::assignRole($model->id, 'user');
+            return $this->redirect(['index']);
+        }
 
 
-		return $this->renderIsAjax('create', [
-			'model' => $model, 
-			'polyclinics' => Polyclinics::find()->orderBy("name")->all()
-		]);
-	}
+        return $this->renderIsAjax('create', [
+            'model' => $model,
+            'polyclinics' => Polyclinics::find()->orderBy("name")->all()
+        ]);
+    }
 
-	public function actionDelete($id)
-	{
-		$model = User::findOne($id);
+    public function actionDelete($id)
+    {
+        $model = User::findOne($id);
 
-		if ( !$model )
-		{
-			throw new NotFoundHttpException('User not found');
-		}
-		$model->delete();
+        if (!$model) {
+            throw new NotFoundHttpException('User not found');
+        }
+        $model->delete();
 
-		$redirect = $this->getRedirectPage('delete', $model);
+        $redirect = $this->getRedirectPage('delete', $model);
 
-		return $redirect === false ? '' : $this->redirect(['index']);
-	}	
+        return $redirect === false ? '' : $this->redirect(['index']);
+    }
 
-	/**
-	 * @param int $id User ID
-	 *
-	 * @throws \yii\web\NotFoundHttpException
-	 * @return string
-	 */
-	public function actionChangePassword($id)
-	{
-		$model = User::findOne($id);
+    /**
+     * @param int $id User ID
+     *
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionChangePassword($id)
+    {
+        $model = User::findOne($id);
 
-		if ( !$model )
-		{
-			throw new NotFoundHttpException('User not found');
-		}
+        if (!$model) {
+            throw new NotFoundHttpException('User not found');
+        }
 
-		$model->scenario = 'changePassword';
+        $model->scenario = 'changePassword';
 
-		if ( $model->load(Yii::$app->request->post()) && $model->save() )
-		{
-			return $this->redirect(['index']);
-		}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
 
-		return $this->renderIsAjax('changePassword', compact('model'));
-	}
+        return $this->renderIsAjax('changePassword', compact('model'));
+    }
 
-	public function actionUpdate($id)
-	{
+    public function actionUpdate($id)
+    {
 
-		$model = User::findOne($id);
+        $model = User::findOne($id);
 
-		if ( !$model )
-		{
-			throw new NotFoundHttpException('User not found');
-		}
+        if (!$model) {
+            throw new NotFoundHttpException('User not found');
+        }
 
-		if ( $this->scenarioOnUpdate )
-		{
-			$model->scenario = $this->scenarioOnUpdate;
-		}
+        if ($this->scenarioOnUpdate) {
+            $model->scenario = $this->scenarioOnUpdate;
+        }
 
-		if ( $model->load(Yii::$app->request->post()) AND $model->save())
-		{
-			$redirect = $this->getRedirectPage('update', $model);
+        if ($model->load(Yii::$app->request->post()) and $model->save()) {
+            $redirect = $this->getRedirectPage('update', $model);
 
-			return $redirect === false ? '' : $this->redirect(['index']);
-		}
+            return $redirect === false ? '' : $this->redirect(['index']);
+        }
 
-		return $this->renderIsAjax('update', [
-			'model' => $model, 
-			'polyclinics' => Polyclinics::find()->orderBy("name")->all()
-		]);
-	}
-
-
-
-
+        return $this->renderIsAjax('update', [
+            'model' => $model,
+            'polyclinics' => Polyclinics::find()->orderBy("name")->all()
+        ]);
+    }
 }
