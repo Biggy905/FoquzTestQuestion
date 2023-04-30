@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\Patient;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "form_diseases".
@@ -10,23 +12,16 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property int|null $sort
- *
- * @property Patients[] $patients
+ * @property Patient[] $patients
  */
 class FormDiseases extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'form_diseases';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name'], 'required'],
@@ -35,10 +30,7 @@ class FormDiseases extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -47,13 +39,8 @@ class FormDiseases extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Patients]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPatients()
+    public function getPatients(): ActiveQuery
     {
-        return $this->hasMany(Patients::className(), ['form_disease_id' => 'id']);
+        return $this->hasMany(Patient::className(), ['form_disease_id' => 'id']);
     }
 }

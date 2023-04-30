@@ -7,59 +7,45 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\User;
 
-/**
- * UserSearch represents the model behind the search form about `webvimark\modules\UserManagement\models\User`.
- */
-class PatientSearch  extends Patient 
+class PatientSearch extends Patient
 {
+    public function scenarios(): array
+    {
+        return Model::scenarios();
+    }
 
-	public function scenarios()
-	{
-		// bypass scenarios() implementation in the parent class
-		return Model::scenarios();
-	}
+    public function search($params): ActiveDataProvider
+    {
+        $query = self::find();
 
-	public function search($params)
-	{
-		$query = self::find();
+        $query->with(["status", "polyclinic", "treatment", "formDisease", "updatedBy"]);
 
-		$query->with(["status", "polyclinic", "treatment", "formDisease", "updatedBy"]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 100),
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'updated' => SORT_DESC,
+                ],
+            ],
+        ]);
 
-		/*if ( !Yii::$app->user->isSuperadmin )
-		{
-			$query->where(['superadmin'=>0]);
-		}*/
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
 
-		$dataProvider = new ActiveDataProvider([
-			'query' => $query,
-			'pagination' => [
-				'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 100),
-			],
-			'sort'=>[
-				'defaultOrder'=>[
-					'updated'=>SORT_DESC,
-				],
-			],
-		]);
+        $query->andFilterWhere([
+            'polyclinic_id' => $this->polyclinic_id,
+            'status_id' => $this->status_id,
+            'form_disease_id' => $this->form_disease_id,
+            'treatment_id' => $this->treatment_id,
+        ]);
 
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'phone', $this->phone]);
 
-
-		if (!($this->load($params) && $this->validate())) {
-			return $dataProvider;
-		}
-
-
-
-		$query->andFilterWhere([
-			'polyclinic_id' => $this->polyclinic_id,
-			'status_id' => $this->status_id,
-			'form_disease_id' => $this->form_disease_id,
-			'treatment_id' => $this->treatment_id,
-		]);
-
-    	$query->andFilterWhere(['like', 'name', $this->name])
-		->andFilterWhere(['like', 'phone', $this->phone]);
-
-		return $dataProvider;
-	}
+        return $dataProvider;
+    }
 }

@@ -5,25 +5,17 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "polyclinics".
- *
  * @property int $id
  * @property string $name
  */
 class Polyclinics extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'polyclinics';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name'], 'required'],
@@ -31,10 +23,7 @@ class Polyclinics extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
