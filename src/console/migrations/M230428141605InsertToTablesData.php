@@ -30,6 +30,7 @@ final class M230428141605InsertToTablesData extends Migration
                 'name',
             ],
             [
+                [1, 'Поликлиника первая'],
                 [2, 'Поликлиника первая'],
                 [3, 'поликлиника 2'],
             ],
@@ -89,30 +90,6 @@ final class M230428141605InsertToTablesData extends Migration
                 [1, 0, 'superadmin', 'YpBGl_EWteH_sAUPHVWTpbgdJDE7mrXy', '$2y$13$uwzoN00JcxSMo2zungt6Hubis6w5GLtcLzdwzZZ1ij3bvgLCiKbvS', NULL, 1, 1, 1590500440, 1590683188, NULL, '', NULL, 0],
                 [9, 2, 'a.plotnikov', 'qyftGvqeDsWenw2pVFzOlm_7u1OhdwpZ', '$2y$13$RXC/s.EQoxntoq9zbVgqreAO7ht9MTMhnV8RaXcVaRQ4eJFF2iVXe', NULL, 1, 1, 1590683226, 1590683226, '188.32.22.19', '', '', 0],
                 [10, 2, 'user.poilclinica.1', '5Z372ETTEPlibgXrOOK7XzjVH_glLfnY', '$2y$13$TKyulybBOSs3LIf/jb3MeODgl.vPQ43zbtRRkl.h9bohtuSDD5P7W', NULL, 1, 0, 1590683290, 1590683290, '188.32.22.19', '', '', 0],
-            ],
-        );
-
-        $this->batchInsert(
-            'user_visit_log',
-            [
-                'id',
-                'token',
-                'ip',
-                'language',
-                'user_agent',
-                'user_id',
-                'visit_time',
-                'browser',
-                'os',
-            ],
-            [
-                [1, '5ecd32603a185', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36', 1, 1590506080, 'Chrome', 'Windows'],
-                [2, '5ecf5690e0075', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36', 1, 1590646416, 'Chrome', 'Windows'],
-                [3, '5ecf59cb0e140', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36', 1, 1590647243, 'Chrome', 'Windows'],
-                [9, '5ecfe672bfb1b', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36', 9, 1590683250, 'Chrome', 'Windows'],
-                [10, '5ecfe6b1d026b', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36', 10, 1590683313, 'Chrome', 'Windows'],
-                [11, '5f0d5605d355f', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', 9, 1594709509, 'Chrome', 'Windows'],
-                [12, '60377dd4bdec5', '188.32.22.19', 'ru', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36', 9, 1614249428, 'Chrome', 'Windows'],
             ],
         );
 

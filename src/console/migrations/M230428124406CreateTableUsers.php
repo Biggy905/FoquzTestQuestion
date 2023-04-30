@@ -18,7 +18,7 @@ final class M230428124406CreateTableUsers extends Migration
                 'email' => $this->string(128)->defaultValue(null),
                 'email_confirmed' => $this->smallInteger(1)->defaultValue(0),
                 'password_hash' => $this->string(255)->notNull(),
-                'auth_key' => $this->string(32)->notNull(),
+                'auth_key' => $this->string(128)->notNull(),
                 'confirmation_token' => $this->string(255)->defaultValue(null),
                 'status' => $this->integer(11)->notNull()->defaultValue(1),
                 'superadmin' => $this->smallInteger(6)->defaultValue(0),
