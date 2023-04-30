@@ -2,17 +2,10 @@
 
 namespace app\models;
 
-use webvimark\helpers\LittleBigHelper;
-use webvimark\helpers\Singleton;
-use webvimark\modules\UserManagement\components\AuthHelper;
-use webvimark\modules\UserManagement\components\UserIdentity;
-use webvimark\modules\UserManagement\models\rbacDB\Role;
-use webvimark\modules\UserManagement\models\rbacDB\Route;
+use app\queries\UserQuery;
 use webvimark\modules\UserManagement\UserManagementModule;
-use Yii;
-use yii\base\InvalidConfigException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use Yii;
 
 /**
  * @property integer $id
@@ -46,6 +39,11 @@ class User extends \webvimark\modules\UserManagement\models\User
             static::STATUS_INACTIVE => UserManagementModule::t('back', 'Inactive'),
             static::STATUS_BANNED   => UserManagementModule::t('back', 'Banned'),
         ];
+    }
+
+    public static function find(): UserQuery
+    {
+        return (new UserQuery(get_called_class()));
     }
 
     public function getPolyclinic(): ActiveQuery

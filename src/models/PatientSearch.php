@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\User;
 
 class PatientSearch extends Patient
 {
@@ -25,9 +24,9 @@ class PatientSearch extends Patient
             'pagination' => [
                 'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 100),
             ],
-            'sort' => [
-                'defaultOrder' => [
-                    'updated' => SORT_DESC,
+            'sort'=>[
+                'defaultOrder'=>[
+                    'updated'=>SORT_DESC,
                 ],
             ],
         ]);

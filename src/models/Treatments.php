@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use Yii;
+use app\queries\TreatmentsQuery;
 use yii\db\ActiveQuery;
+use Yii;
 
 /**
  * @property int $id
@@ -35,6 +36,11 @@ class Treatments extends \yii\db\ActiveRecord
             'name' => 'Name',
             'sort' => 'Sort',
         ];
+    }
+
+    public static function find(): TreatmentsQuery
+    {
+        return (new TreatmentsQuery(get_called_class()));
     }
 
     public function getPatients(): ActiveQuery

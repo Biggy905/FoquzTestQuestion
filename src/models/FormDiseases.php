@@ -2,13 +2,11 @@
 
 namespace app\models;
 
-use Yii;
-use app\models\Patient;
+use app\queries\FormDiseasesQuery;
 use yii\db\ActiveQuery;
+use Yii;
 
 /**
- * This is the model class for table "form_diseases".
- *
  * @property int $id
  * @property string $name
  * @property int|null $sort
@@ -37,6 +35,11 @@ class FormDiseases extends \yii\db\ActiveRecord
             'name' => 'Name',
             'sort' => 'Sort',
         ];
+    }
+
+    public static function find(): FormDiseasesQuery
+    {
+        return (new FormDiseasesQuery(get_called_class()));
     }
 
     public function getPatients(): ActiveQuery

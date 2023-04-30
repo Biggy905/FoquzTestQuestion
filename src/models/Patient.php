@@ -2,8 +2,9 @@
 
 namespace app\models;
 
-use Yii;
+use app\queries\PatientQuery;
 use yii\db\ActiveQuery;
+use Yii;
 
 /**
  * @property int $id
@@ -50,7 +51,7 @@ class Patient extends \yii\db\ActiveRecord
                     'updated',
                     'diagnosis_date',
                     'recovery_date',
-                    'analysis_date',
+                    'analysis_date'
                 ],
                 'safe',
             ],
@@ -62,7 +63,7 @@ class Patient extends \yii\db\ActiveRecord
                     'form_disease_id',
                     'created_by',
                     'updated_by',
-                    'source_id',
+                    'source_id'
                 ],
                 'integer',
             ],
@@ -85,16 +86,16 @@ class Patient extends \yii\db\ActiveRecord
                 ['form_disease_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => FormDiseases::className(),
+                'targetClass' => FormDiseases::class,
                 'targetAttribute' => [
                     'form_disease_id' => 'id',
                 ],
             ],
             [
                 ['source_id'],
-                'exist', '
-                skipOnError' => true,
-                'targetClass' => Patient::className(),
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Patient::class,
                 'targetAttribute' => [
                     'source_id' => 'id',
                 ],
@@ -103,16 +104,16 @@ class Patient extends \yii\db\ActiveRecord
                 ['polyclinic_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Polyclinics::className(),
+                'targetClass' => Polyclinics::class,
                 'targetAttribute' => [
-                    'polyclinic_id' => 'id'
-                ]
+                    'polyclinic_id' => 'id',
+                ],
             ],
             [
                 ['status_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Statuses::className(),
+                'targetClass' => Statuses::class,
                 'targetAttribute' => [
                     'status_id' => 'id',
                 ],
@@ -121,7 +122,7 @@ class Patient extends \yii\db\ActiveRecord
                 ['treatment_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Treatments::className(),
+                'targetClass' => Treatments::class,
                 'targetAttribute' => [
                     'treatment_id' => 'id',
                 ],
@@ -130,7 +131,7 @@ class Patient extends \yii\db\ActiveRecord
                 ['created_by'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => User::className(),
+                'targetClass' => User::class,
                 'targetAttribute' => [
                     'created_by' => 'id',
                 ],
@@ -139,7 +140,7 @@ class Patient extends \yii\db\ActiveRecord
                 ['updated_by'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => User::className(),
+                'targetClass' => User::class,
                 'targetAttribute' => [
                     'updated_by' => 'id',
                 ],
@@ -168,6 +169,11 @@ class Patient extends \yii\db\ActiveRecord
             'analysis_date' => 'Анализ',
             'source_id' => 'От кого заразился',
         ];
+    }
+
+    public static function find(): PatientQuery
+    {
+        return (new PatientQuery(get_called_class()));
     }
 
     public function getFormDisease(): ActiveQuery

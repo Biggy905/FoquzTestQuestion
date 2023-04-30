@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\queries\PolyclinicsQuery;
 use Yii;
 
 /**
@@ -29,5 +30,10 @@ class Polyclinics extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название поликлиники',
         ];
+    }
+
+    public static function find(): PolyclinicsQuery
+    {
+        return (new PolyclinicsQuery(get_called_class()));
     }
 }
