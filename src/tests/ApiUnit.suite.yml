@@ -1,0 +1,11 @@
+actor: ApiUnitTester
+suite_namespace: tests\ApiUnit
+bootstrap: _bootstrap.php
+colors: true
+modules:
+    enabled:
+      - Asserts
+      - Yii2:
+            part: [orm, email, fixtures]
+            configFile: 'tests/_config/config.php'
+    step_decorators: ~

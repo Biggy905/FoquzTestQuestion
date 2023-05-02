@@ -14,13 +14,18 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.1",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "webvimark/module-user-management": "^1.0",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "ext-pdo": "*",
+        "firebase/php-jwt": "^6.3",
+        "psr/log": "^3.0",
+        "psr/simple-cache": "^3.0",
+        "vlucas/phpdotenv": "^5.5@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -73,5 +78,10 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "/"
+        }
+    }
 }
