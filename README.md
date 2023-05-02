@@ -18,11 +18,7 @@ make composer-install
 ```
 
 <h6>Шаг 4<h6>
+
 ```
 make migrate
-```
-
-<h6>Шаг 5</h6>
-```
-make fixtures
 ```
