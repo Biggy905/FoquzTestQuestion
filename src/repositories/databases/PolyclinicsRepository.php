@@ -16,7 +16,7 @@ final class PolyclinicsRepository implements PolyclinicsRepositoryInterface
     {
         $polyclinic = Polyclinics::find()->byId($id)->one();
         if (!$polyclinic) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Поликлиника не найдена');
         }
 
         return $polyclinic;
@@ -81,7 +81,7 @@ final class PolyclinicsRepository implements PolyclinicsRepositoryInterface
     public function create(Polyclinics $polyclinic): Polyclinics
     {
         if (!$polyclinic->save()) {
-            throw new LogicException();
+            throw new LogicException('Не удалось сохранить');
         }
 
         return $polyclinic;
@@ -90,7 +90,7 @@ final class PolyclinicsRepository implements PolyclinicsRepositoryInterface
     public function delete(Polyclinics $polyclinic): void
     {
         if (!$polyclinic->delete()) {
-            throw new LogicException();
+            throw new LogicException('Не удалось удалить');
         }
     }
 }

@@ -31,7 +31,7 @@ final class PatientsService
         $form = $this->idForm;
         $form->setAttributes(['id' => $id]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $patient = $this->patientRepository->findById($form->id);
@@ -47,7 +47,7 @@ final class PatientsService
         $form = $this->filterForm;
         $form->setAttributes(['id' => $page, 'limit' => $limit]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Не верный параметр фильтрации');
         }
 
         $patients = $this->patientRepository->findAll($form);
@@ -63,7 +63,7 @@ final class PatientsService
         $form = new Patient();
         $form->setAttributes($request);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Ошибка валидации формы');
         }
 
         $patient = $this->patientRepository->create($form);
@@ -80,7 +80,7 @@ final class PatientsService
         $idForm = $this->idForm;
         $idForm->setAttributes(['id' => $id]);
         if (!$idForm->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $form = new Patient();
@@ -105,12 +105,16 @@ final class PatientsService
         return PatientItemGroups::toArray($updatePatient);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     * @throws BadRequestHttpException
+     */
     public function delete(int $id): void
     {
         $form = $this->idForm;
         $form->setAttributes(['id' => $id]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $patient = $this->patientRepository->findById($form->id);

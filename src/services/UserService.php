@@ -21,7 +21,7 @@ final class UserService
         $form = $this->authForm;
         $form->setAttributes($request);
         if (!$form->validate()) {
-            throw new DomainException();
+            throw new DomainException('Не верный логин/пароль');
         }
 
         $user = $this->repository->findByUser($form->username);

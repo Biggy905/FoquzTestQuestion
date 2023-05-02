@@ -17,7 +17,7 @@ final class PatientRepository implements  PatientRepositoryInterface
             ->joinAll()
             ->one();
         if (!$patient) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Пациент не найден');
         }
 
         return $patient;
@@ -56,7 +56,7 @@ final class PatientRepository implements  PatientRepositoryInterface
     public function create(Patient $patient): Patient
     {
         if (!$patient->save()) {
-            throw new LogicException();
+            throw new LogicException('Не удалось сохранить');
         }
 
         return $patient;
@@ -65,7 +65,7 @@ final class PatientRepository implements  PatientRepositoryInterface
     public function delete(Patient $patient): void
     {
         if (!$patient->delete()) {
-            throw new LogicException();
+            throw new LogicException('Не удалось удалить');
         }
     }
 }

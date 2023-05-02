@@ -17,7 +17,7 @@ final class TokenRepository implements  TokenRepositoryInterface
     public function create(Token $token): Token
     {
         if (!$token->save()){
-            throw new LogicException();
+            throw new LogicException('Не удалось сохранить');
         }
 
         return $token;
@@ -27,7 +27,7 @@ final class TokenRepository implements  TokenRepositoryInterface
     {
         $token->deleted_at = DateTimeHelpers::createDateTime();
         if (!$token->save()) {
-            throw new LogicException();
+            throw new LogicException('Не удалось удалить');
         }
     }
 }

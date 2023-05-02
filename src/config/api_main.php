@@ -32,6 +32,7 @@ $config = [
             }
         ],
         'errorHandler' => [
+            'class' => \app\components\ErrorHandler::class,
             'errorAction' => 'site/error',
         ],
         'mailer' => [

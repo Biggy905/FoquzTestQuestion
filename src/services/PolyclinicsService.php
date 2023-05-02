@@ -30,7 +30,7 @@ final class PolyclinicsService
         $form = $this->idForm;
         $form->setAttributes(['id' => $id]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $polyclinic = $this->polyclinicsRepository->findById($form->id);
@@ -43,7 +43,7 @@ final class PolyclinicsService
         $form = $this->filterForm;
         $form->setAttributes(['id' => $page, 'limit' => $limit]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Не верный параметр фильтрации');
         }
 
         $polyclinics = $this->polyclinicsRepository->findAll($form);
@@ -59,7 +59,7 @@ final class PolyclinicsService
         $form = new Polyclinics();
         $form->setAttributes($request);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Ошибка валидации');
         }
 
         $polyclinic = $this->polyclinicsRepository->create($form);
@@ -76,13 +76,13 @@ final class PolyclinicsService
         $idForm = $this->idForm;
         $idForm->setAttributes(['id' => $id]);
         if (!$idForm->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $form = new Polyclinics();
         $form->setAttributes($request);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Ошибка валидации');
         }
         $polyclinic = $this->polyclinicsRepository->findById($idForm->id);
         $polyclinic->name = $form->name ?? $polyclinic->name;
@@ -101,7 +101,7 @@ final class PolyclinicsService
         $form = $this->idForm;
         $form->setAttributes(['id' => $id]);
         if (!$form->validate()) {
-            throw new BadRequestHttpException();
+            throw new BadRequestHttpException('Проверьте ID-запись');
         }
 
         $polyclinic = $this->polyclinicsRepository->findById($form->id);

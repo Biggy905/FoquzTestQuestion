@@ -14,7 +14,7 @@ final class UserRepository implements UserRepositoryInterface
     {
         $user = User::find()->byId($id)->one();
         if (!$user) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Пользователь не найден');
         }
 
         return $user;
@@ -22,7 +22,12 @@ final class UserRepository implements UserRepositoryInterface
 
     public function findByUser(string $user): ?User
     {
-        return User::find()->byUser($user)->one();
+        $user = User::find()->byUser($user)->one();
+        if (!$user) {
+            throw new NotFoundHttpException('Пользователь не найден');
+        }
+
+        return $user;
     }
 
     public function update(User $user): User
