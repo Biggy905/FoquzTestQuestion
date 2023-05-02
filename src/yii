@@ -9,7 +9,7 @@ use yii\console\Application;
 use Dotenv\Dotenv;
 
 (Dotenv::createUnsafeImmutable(
-    __DIR__ ,
+        dirname(__DIR__, 1),
     ['.env'],
     false
 ))->load();

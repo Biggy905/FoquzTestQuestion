@@ -3,9 +3,10 @@
 namespace app\controllers\api;
 
 use app\components\RestController;
-use app\models\User;
 use app\services\PatientsService;
-use Yii;
+use yii\base\InvalidConfigException;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 
 final class PatientsController extends RestController
 {
@@ -41,6 +42,10 @@ final class PatientsController extends RestController
         return $behaviors;
     }
 
+    /**
+     * @throws NotFoundHttpException
+     * @throws BadRequestHttpException
+     */
     public function actionItem(int $id): array
     {
         $patient = $this->service->item($id);
@@ -48,6 +53,9 @@ final class PatientsController extends RestController
         return $this->response($patient);
     }
 
+    /**
+     * @throws BadRequestHttpException
+     */
     public function actionList($page, $limit): array
     {
         $patients = $this->service->list($page, $limit);
@@ -55,6 +63,10 @@ final class PatientsController extends RestController
         return $this->response($patients);
     }
 
+    /**
+     * @throws InvalidConfigException
+     * @throws BadRequestHttpException
+     */
     public function actionCreate(): array
     {
         $request = $this->request->getBodyParams();
@@ -64,6 +76,11 @@ final class PatientsController extends RestController
         return $this->response($patient);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     * @throws InvalidConfigException
+     * @throws BadRequestHttpException
+     */
     public function actionUpdate($id): array
     {
         $request = $this->request->getBodyParams();
@@ -73,6 +90,10 @@ final class PatientsController extends RestController
         return $this->response($patient);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     * @throws BadRequestHttpException
+     */
     public function actionDelete($id): array
     {
         $this->service->delete($id);

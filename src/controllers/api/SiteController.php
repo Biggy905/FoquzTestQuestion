@@ -4,6 +4,7 @@ namespace app\controllers\api;
 
 use app\components\RestController;
 use app\services\UserService;
+use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use Yii;
 
@@ -60,6 +61,9 @@ final class SiteController extends RestController
         );
     }
 
+    /**
+     * @throws InvalidConfigException
+     */
     public function actionLogin(): array
     {
         $request = $this->request->getBodyParams();
